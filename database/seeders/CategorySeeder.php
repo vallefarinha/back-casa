@@ -8,13 +8,9 @@ use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+    
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
         Category::create(['name' => 'Religión']);
         Category::create(['name' => 'Família']);
         Category::create(['name' => 'Maternidad']);
@@ -22,5 +18,5 @@ class CategorySeeder extends Seeder
         Category::create(['name' => 'Salud']);
         Category::create(['name' => 'Educación']);
         Category::create(['name' => 'Eventos']);
-        }
+    }
 }
