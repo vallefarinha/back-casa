@@ -18,8 +18,8 @@ class CommentFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => $this->faker->text(500),
-            'name' => $this->faker->firstName(),
+            'content' => $this->faker->text(500),
+            'author' => $this->faker->firstName(),
             'email' => $this->faker->safeEmail,
             'post_id' => Post::all()->random()->id,
         ];
