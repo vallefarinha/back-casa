@@ -14,10 +14,11 @@ class CategoryControllerTest extends TestCase
     $category = Category::factory()->make()->toArray();
 
     $response = $this->postJson('/api/create/category', $category);
+
     $response->assertStatus(201);
-    $responseData = $response->json();
-    $this->assertArrayHasKey('message', $responseData, 'The response does not contain a success message.');
-    $this->assertEquals('Categoria guardada correctamente', $responseData['message'], 'La categoria no se guardó correctamente');
+        $responseData = $response->json();
+        $this->assertArrayHasKey('message', $responseData, 'The response does not contain a success message.');
+        $this->assertEquals('Categoria guardada correctamente', $responseData['message'], 'La categoria no se guardó correctamente');
     }
 
     public function test_list_categories()
