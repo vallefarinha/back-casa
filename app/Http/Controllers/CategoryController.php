@@ -13,14 +13,12 @@ class CategoryController extends Controller
      */
     public function viewCategories()
     {
-                try{
+        try {
             $categories = Category::all();
             return response()->json(['categories' => $categories], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 500, 'message' => 'Error al visualizar las categorias: ' . $e->getMessage()], 500);
         }
-
-
     }
 
     /**
@@ -43,28 +41,19 @@ class CategoryController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function showCategory(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        try {
+            // Busca la categoría por su ID en la base de datos
+            $category = Category::findOrFail($id);
+            
+            // Devuelve la categoría encontrada en formato JSON
+            return response()->json(['category' => $category], 200);
+        } catch (\Exception $e) {
+            // Maneja cualquier error que ocurra durante la búsqueda de la categoría
+            return response()->json(['error' => 'La categoría no pudo ser encontrada.'], 404);
+        }
     }
 
     /**

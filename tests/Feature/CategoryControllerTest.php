@@ -35,4 +35,18 @@ class CategoryControllerTest extends TestCase
         $this->assertCount(5, $retrievedCategories, 'The response does not contain the expected number of categories.');
     }
 
+    public function test_show_category()
+    {
+        $category = Category::factory()->create();
+        $response = $this->getJson("/api/category/{$category->id}");
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'category' => [
+                'id' => $category->id,
+                'name' => $category->name,
+            ]
+        ]);
+    }
+
     }
