@@ -45,13 +45,10 @@ class CategoryController extends Controller
     public function showCategory(string $id)
     {
         try {
-            // Busca la categoría por su ID en la base de datos
             $category = Category::findOrFail($id);
             
-            // Devuelve la categoría encontrada en formato JSON
             return response()->json(['category' => $category], 200);
         } catch (\Exception $e) {
-            // Maneja cualquier error que ocurra durante la búsqueda de la categoría
             return response()->json(['error' => 'La categoría no pudo ser encontrada.'], 404);
         }
     }
@@ -59,16 +56,32 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateCategory(Request $request, string $id)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255|unique:categories',
+            ]);
+            $category = Category::findOrFail($id);
+            $category->update($request->all());
+            return response()->json(['message' => 'Categoría actualizada correctamente'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'La categoría no pudo ser actualizada.'], 404);
+        }
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroyCategory(string $id)
     {
-        //
+        try {
+            $category = Category::findOrFail($id);
+            $category->delete();
+            return response()->json(['message' => 'Categoría eliminada correctamente'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'message' => 'Error al eliminar Categoría: ' . $e->getMessage()], 500);
+        }
     }
 }
