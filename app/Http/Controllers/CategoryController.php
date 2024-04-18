@@ -11,9 +11,16 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function categories()
+    public function viewCategories()
     {
-        //
+                try{
+            $categories = Category::all();
+            return response()->json(['categories' => $categories], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'message' => 'Error al visualizar las categorias: ' . $e->getMessage()], 500);
+        }
+
+
     }
 
     /**
