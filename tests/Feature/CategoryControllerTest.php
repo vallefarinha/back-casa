@@ -21,7 +21,7 @@ class CategoryControllerTest extends TestCase
         $this->assertEquals('Categoria guardada correctamente', $responseData['message'], 'La categoria no se guardó correctamente');
     }
 
-    public function test_list_categories()
+    public function test_view_categories()
     {
         $categories = Category::factory()->count(5)->create();
 
