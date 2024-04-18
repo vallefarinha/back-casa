@@ -19,4 +19,4 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/api/create/category', [CategoryController::class, 'createCategory']);
+Route::post('/create/category', [CategoryController::class, 'createCategory']);
