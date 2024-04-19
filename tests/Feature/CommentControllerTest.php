@@ -33,7 +33,9 @@ class CommentControllerTest extends TestCase
 
         $responseData = $response->json();
         $this->assertArrayHasKey('comments', $responseData, 'The response does not contain comments.');
-        $response->assertJsonCount(Comment::count());
+        $commentsCount = Comment::count();
+    $this->assertCount($commentsCount, $responseData['comments']);
+
     }
 
 
