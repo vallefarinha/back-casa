@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,6 @@ Route::get('/posts', [PostController::class, 'viewPosts']);
 Route::get('/post/{id}', [PostController::class, 'viewPost']);
 Route::put('/post/{id}/update', [PostController::class, 'updatePost']);
 Route::delete('/post/{id}/delete', [PostController::class, 'deletePost']);
+
+
+Route::post('/create/comment', [CommentController::class, 'createComment']);

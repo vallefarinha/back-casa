@@ -43,7 +43,7 @@ class PostController extends Controller
 
             return response()->json(['message' => 'Post creado', 'post' => $post], 201);
         } catch (\Exception $e) {
-            return response()->json(['status' => 500, 'message' => 'Erro al criar el post: ' . $e->getMessage()], 500);
+            return response()->json(['status' => 500, 'message' => 'Error al crear el post: ' . $e->getMessage()], 500);
         }
     }
 
