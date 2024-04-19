@@ -33,10 +33,21 @@ class CommentControllerTest extends TestCase
 
         $responseData = $response->json();
         $this->assertArrayHasKey('comments', $responseData, 'The response does not contain comments.');
+       
         $commentsCount = Comment::count();
-    $this->assertCount($commentsCount, $responseData['comments']);
+        $this->assertCount($commentsCount, $responseData['comments']);
 
     }
 
+    public function test_destroy_comment()
+    {
+        $comment = Comment::factory()->create();
+        $response = $this->deleteJson("/api/comment/{$comment->id}/destroy");
 
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('comments', ['id' => $comment->id]);
+        $responseData = $response->json();
+        $this->assertEquals('Comentario eliminado correctamente', $responseData['message']);
+
+    }
 }

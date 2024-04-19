@@ -34,4 +34,16 @@ class CommentController extends Controller
             return response()->json(['status' => 500, 'message' => 'Error al visualizar los comentarios: ' . $e->getMessage()], 500);
         }
     }
+
+    public function destroyComment(string $id)
+    {
+        try {
+            $comment = Comment::findOrFail($id);
+            $comment->delete();
+            return response()->json(['message' => 'Comentario eliminado correctamente'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'message' => 'Error al eliminar el comentario: ' . $e->getMessage()], 500);
+        }
+    }
+    
 }
