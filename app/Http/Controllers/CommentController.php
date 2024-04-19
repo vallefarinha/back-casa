@@ -24,4 +24,14 @@ class CommentController extends Controller
             return response()->json(['status' => 500, 'message' => 'Error al crear el post: ' . $e->getMessage()], 500);
         }
     }
+
+    public function viewComments()
+    {
+        try {
+            $comments = Comment::all();
+            return response()->json(['comments' => $comments], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'message' => 'Error al visualizar los comentarios: ' . $e->getMessage()], 500);
+        }
+    }
 }

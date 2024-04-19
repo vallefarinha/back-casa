@@ -35,3 +35,4 @@ Route::delete('/post/{id}/delete', [PostController::class, 'deletePost']);
 
 
 Route::post('/create/comment', [CommentController::class, 'createComment']);
+Route::get('/comments', [CommentController::class, 'viewComments']);

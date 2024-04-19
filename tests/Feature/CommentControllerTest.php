@@ -26,5 +26,15 @@ class CommentControllerTest extends TestCase
         $this->assertDatabaseHas('comments', $comment);
     }
 
+    public function test_view_comments()
+    {
+        $response = $this->getJson('/api/comments');
+        $response->assertStatus(200);
+
+        $responseData = $response->json();
+        $this->assertArrayHasKey('comments', $responseData, 'The response does not contain comments.');
+        $response->assertJsonCount(Comment::count());
+    }
+
 
 }
