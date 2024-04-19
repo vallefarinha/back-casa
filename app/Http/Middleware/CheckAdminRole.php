@@ -17,15 +17,14 @@ class CheckAdminRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Verificar si el usuario está autenticado
-        if (Auth::check()) {
-            // Verificar si el usuario autenticado es el administrador
-            if (Auth::user()->isAdmin()) {
+        $user = $request->user();
+        if ($user) {
+            if ($user->isAdmin()) {
                 return $next($request);
             }
         }
 
-        // Si el usuario no es el administrador, redirigir o devolver un error 403
         return response()->json(['message' => 'Unauthorized'], 403);
     }
+    
 }
