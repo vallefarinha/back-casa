@@ -24,7 +24,7 @@ class CategoryControllerTest extends TestCase
         $this->assertEquals('Categoria guardada correctamente', $responseData['message'], 'La categoria no se guardó correctamente');
     }
 
-    public function test_list_categories()
+    public function test_view_categories()
     {
         $response = $this->getJson('/api/categories');
         $response->assertStatus(200);
