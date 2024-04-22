@@ -12,36 +12,40 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
-        $user = User::factory()->create();
+        $admin = User::where('email', 'casalaguia@example.com')->first();
+
 
         $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
+            'email' => $admin->email,
+            'password' => env('USER_PASSWORD'),
         ]);
 
         $this->assertAuthenticated();
-        $response->assertNoContent();
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['token']);
     }
 
-    public function test_users_can_not_authenticate_with_invalid_password(): void
+    public function test_admin_cannot_authenticate_with_invalid_password(): void
     {
-        $user = User::factory()->create();
-
+        $admin = User::where('email', 'casalaguia@example.com')->first();
+    
         $this->post('/login', [
-            'email' => $user->email,
+            'email' => $admin->email,
             'password' => 'wrong-password',
         ]);
-
+    
         $this->assertGuest();
     }
-
-    public function test_users_can_logout(): void
+    
+    public function test_admin_cannot_logout(): void
     {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->post('/logout');
-
+        $admin = User::where('email', 'casalaguia@example.com')->first();
+    
+        $response = $this->actingAs($admin)->post('/logout');
+    
         $this->assertGuest();
-        $response->assertNoContent();
+    
+        $response->assertStatus(200);
     }
+    
 }

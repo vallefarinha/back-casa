@@ -5,12 +5,18 @@ namespace Tests\Feature;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Models\Category;
+use App\Models\User;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class CategoryControllerTest extends TestCase
-{
+{   
+    use WithFaker;
     public function test_create_category()
     {
+        $user = User::where('email', 'casalaguia@example.com')->first();
+        $this->actingAs($user);
+
         $category = Category::factory()->make()->toArray();
 
         $response = $this->postJson('/api/create/category', $category);
@@ -31,7 +37,8 @@ class CategoryControllerTest extends TestCase
 
         $responseData = $response->json();
         $this->assertArrayHasKey('categories', $responseData, 'The response does not contain categories.');
-        $response->assertJsonCount(Category::count());
+        $categoriesCount = Category::count();
+        $this->assertCount($categoriesCount, $responseData['categories']);
     }
 
     public function test_show_category()
@@ -50,9 +57,11 @@ class CategoryControllerTest extends TestCase
 
     public function test_update_category()
     {
+        $user = User::where('email', 'casalaguia@example.com')->first();
+        $this->actingAs($user);
         $category = Category::factory()->create();
         $updatedData = [
-            'name' => 'Nueva categoría',
+            'name' => $this->faker->word(),
         ];
         $response = $this->putJson("/api/category/update/{$category->id}", $updatedData);
 
@@ -67,6 +76,8 @@ class CategoryControllerTest extends TestCase
 
     public function test_destroy_category()
     {
+        $user = User::where('email', 'casalaguia@example.com')->first();
+        $this->actingAs($user);
         $category = Category::factory()->create();
     
         $response = $this->deleteJson("/api/category/destroy/{$category->id}");

@@ -46,7 +46,7 @@ Route::middleware(['auth:sanctum', 'Admin'])->group(function () {
     Route::put('/category/update/{id}', [CategoryController::class, 'updateCategory']);
     Route::delete('/category/destroy/{id}', [CategoryController::class, 'destroyCategory']);
     Route::post('/create/post', [PostController::class, 'createPost']);
-    Route::put('/post/{id}/update', [PostController::class, 'updatePost']);
+    Route::post('/post/{id}/update', [PostController::class, 'updatePost']);
     Route::delete('/post/{id}/delete', [PostController::class, 'deletePost']);
     Route::delete('/comment/{id}/destroy', [CommentController::class, 'destroyComment']);
 });
