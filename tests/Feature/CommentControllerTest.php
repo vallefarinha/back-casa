@@ -6,6 +6,7 @@ namespace Tests\Feature;
 
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use Tests\TestCase;
 
 class CommentControllerTest extends TestCase
@@ -41,6 +42,8 @@ class CommentControllerTest extends TestCase
 
     public function test_destroy_comment()
     {
+        $user = User::where('email', 'casalaguia@example.com')->first();
+        $this->actingAs($user);
         $comment = Comment::factory()->create();
         $response = $this->deleteJson("/api/comment/{$comment->id}/destroy");
 
