@@ -22,7 +22,7 @@ class AuthenticatedSessionController extends Controller
 
             $user = $request->user();
             $token = $user->createToken('token-name')->plainTextToken;
-            return response()->json(['token' => $token, 'message' => 'Inicio de sesión exitoso como Administrador']);
+            return response()->json(['token' => $token, 'message' => 'Inicio de sesión exitoso', 'role' => 'Admin']);
         } catch (\Throwable $e) {
             Log::error('Error durante el inicio de sesión: ' . $e->getMessage());
             return response()->json(['message' => 'Correo electrónico o contraseña incorrectos. Por favor, verifica tus credenciales.'], 401);
