@@ -55,7 +55,7 @@ class PostController extends Controller
     public function viewPost(string $id)
     {
         try {
-            $post = Post::findOrFail($id);
+            $post = Post::with('comments')->findOrFail($id);
             return response()->json(['post' => $post], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 500, 'message' => 'Post no encontrado.' . $e->getMessage()], 404);

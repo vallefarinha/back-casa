@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
@@ -70,11 +71,12 @@ class PostControllerTest extends TestCase
     public function test_view_post()
     {
         $post = Post::factory()->create();
-
+        $comments = Comment::factory()->count(2)->create(['post_id' => $post->id]);
+    
         $response = $this->getJson("/api/post/{$post->id}");
-
+    
         $response->assertStatus(200);
-
+    
         $response->assertJson([
             'post' => [
                 'id' => $post->id,
@@ -83,10 +85,32 @@ class PostControllerTest extends TestCase
                 'category_id' => $post->category_id,
                 'author' => $post->author,
                 'image' => $post->image,
+                'comments' => $comments->toArray(),
             ]
         ]);
     }
-
+    
+    public function test_view_post_with_empty_comments()
+    {
+        $post = Post::factory()->create();
+    
+        $response = $this->getJson("/api/post/{$post->id}");
+    
+        $response->assertStatus(200);
+    
+        $response->assertJson([
+            'post' => [
+                'id' => $post->id,
+                'title' => $post->title,
+                'content' => $post->content,
+                'category_id' => $post->category_id,
+                'author' => $post->author,
+                'image' => $post->image,
+                'comments' => [],
+            ]
+        ]);
+    }
+    
     public function test_update_post()
     {
         $user = User::where('email', 'casalaguia@example.com')->first();
