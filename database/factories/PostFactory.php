@@ -18,13 +18,14 @@ class PostFactory extends Factory
     public function definition(): array
     {
         $imagePath = 'images/example_image.png';
+        $imageName = basename($imagePath);
 
         return [
             'title' => $this->faker->sentence(),
             'content' => $this->faker->paragraphs(3, true),
             'category_id' => Category::all()->random()->id,
             'author' => $this->faker->name,
-            'image' => $imagePath,
+            'image' => $imageName,
         ];
     }
 }
