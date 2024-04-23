@@ -81,7 +81,7 @@ class PostControllerTest extends TestCase
             'post' => [
                 'id' => $post->id,
                 'title' => $post->title,
-                'content' => $post->content,
+                'content' => nl2br($post->content),
                 'category_id' => $post->category_id,
                 'author' => $post->author,
                 'image' => $post->image,
@@ -102,7 +102,7 @@ class PostControllerTest extends TestCase
             'post' => [
                 'id' => $post->id,
                 'title' => $post->title,
-                'content' => $post->content,
+                'content' => nl2br($post->content),
                 'category_id' => $post->category_id,
                 'author' => $post->author,
                 'image' => $post->image,

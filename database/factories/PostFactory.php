@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -19,10 +20,14 @@ class PostFactory extends Factory
     {
         $imagePath = 'images/example_image.png';
         $imageName = basename($imagePath);
+        $content = $this->faker->paragraphs(5, true);
+        while (Str::length($content) < 1000) {
+            $content .= $this->faker->paragraph();
+        }
 
         return [
             'title' => $this->faker->sentence(),
-            'content' => $this->faker->paragraphs(3, true),
+            'content' => $content,
             'category_id' => Category::all()->random()->id,
             'author' => $this->faker->name,
             'image' => $imageName,
