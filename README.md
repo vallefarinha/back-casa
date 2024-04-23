@@ -74,7 +74,7 @@ Run the database seeder and you're done
 
 ## Environment variables
 
-- `.env` - Environment variables can be set in this file
+-   `.env` - Environment variables can be set in this file
 
 **_Note_** : You can quickly set the database information and other variables in this file and have the application fully working.
 
@@ -92,12 +92,12 @@ Run the database seeder and you're done
 
 ### This project has been created by:
 
-- [Gabriela Farinha](https://github.com/vallefarinha)
+-   [Gabriela Farinha](https://github.com/vallefarinha)
 
-- [Nathalia Ruiz](https://github.com/NathaRuiz)
+-   [Nathalia Ruiz](https://github.com/NathaRuiz)
 
-- [Maria Cao Caamaño](https://github.com/maicaocaa)
+-   [Maria Cao Caamaño](https://github.com/maicaocaa)
 
-- [Diana Alonso](https://github.com/dialomt)
+-   [Diana Alonso](https://github.com/dialomt)
 
-- [Atefa Mahmoodi](https://github.com/Atefa1234)
+-   [Atefa Mahmoodi](https://github.com/Atefa1234)
