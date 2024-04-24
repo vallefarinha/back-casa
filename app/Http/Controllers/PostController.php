@@ -64,16 +64,16 @@ class PostController extends Controller
     }
 
     public function updatePost(Request $request, string $id)
-{
-    try {
-        
+    {
+        try {
             $request->validate([
                 'title' => 'required|string|max:255',
                 'content' => 'required|string|max:5000',
                 'category_id' => 'required|exists:categories,id',
                 'author' => 'required|string',
-                'image' => 'required|image',
+                'image' => $request->hasFile('image') ? 'required|image' : '', 
             ]);
+    
             $post = Post::findOrFail($id);
             $post->title = $request->input('title');
             $post->content = $request->input('content');
@@ -83,11 +83,11 @@ class PostController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = $image->getClientOriginalName();
-
+    
                 if ($post->image && file_exists(public_path('images/' . $post->image))) {
                     unlink(public_path('images/' . $post->image));
                 }
-
+    
                 $image->move(public_path('images'), $imageName);
                 $post->image = $imageName;
             }
@@ -95,9 +95,11 @@ class PostController extends Controller
             $post->save();
             return response()->json(['message' => 'Post actualizado correctamente'], 200);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return response()->json(['error' => 'El post no pudo ser actualizado.'], 500);
         }
-}
+    }
+    
 
 
 public function deletePost(string $id)
