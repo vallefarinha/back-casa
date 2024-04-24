@@ -53,7 +53,6 @@ You can now access the server at http://localhost:8000
     composer install
     cp .env.example .env
     php artisan key:generate
-    php artisan jwt:generate
 
 **Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 
@@ -82,7 +81,7 @@ Run the database seeder and you're done
 
 ## 🛠️ Skills
 
-[![My Skills](https://skillicons.dev/icons?i=html,js,tailwind,git,github,figma,php,laravel,mysql)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=git,github,php,laravel,mysql)](https://skillicons.dev)
 
 # 📚 Licence
 
